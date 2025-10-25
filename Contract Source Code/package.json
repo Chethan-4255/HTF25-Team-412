@@ -1,0 +1,30 @@
+{
+  "name": "eventpravesh-contract",
+  "version": "1.0.0",
+  "description": "EventPravesh NFT Ticketing Contract",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "nft",
+    "ticketing",
+    "blockchain"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-chai-matchers": "^2.1.0",
+    "@nomicfoundation/hardhat-ethers": "^4.0.2",
+    "@nomicfoundation/hardhat-network-helpers": "^3.0.1",
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "@nomicfoundation/hardhat-verify": "^3.0.4",
+    "@nomiclabs/hardhat-etherscan": "^3.1.8",
+    "@openzeppelin/contracts": "^4.9.6",
+    "chai": "^6.2.0",
+    "dotenv": "^16.0.0",
+    "ethers": "^5.8.0",
+    "hardhat": "^2.17.0",
+    "sol-merger": "^4.4.2"
+  }
+}
