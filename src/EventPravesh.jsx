@@ -33,7 +33,7 @@ const supabase = createClient(
 // Blockchain functionality is handled by Supabase Edge Functions
 
 const Logo = () => (
-  <img src="/src/logo.png" alt="EventPravesh Logo" width="32" height="32" className="rounded-md" />
+  <img src="/logo.png" alt="EventPravesh Logo" width="32" height="32" className="rounded-md" />
 );
 
 const api = {
