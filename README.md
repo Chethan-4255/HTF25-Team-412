@@ -256,7 +256,7 @@ npm run dev
 
 **Attendee Account:**
 - Email: `user@gmail.com`
-- Password: `user123`
+- Password: `User123`
 - Role: Regular User
 
 ### Test Workflow
