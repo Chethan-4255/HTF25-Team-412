@@ -178,6 +178,8 @@ Deno.serve(async (req: Request) => {
     // Extract token ID from the Transfer event
     let tokenId: string | null = null;
     
+    console.log(`Transaction receipt logs count: ${receipt.logs.length}`);
+    
     // Method 1: Look for Transfer event in logs
     for (const log of receipt.logs) {
       try {
@@ -188,7 +190,7 @@ Deno.serve(async (req: Request) => {
           break;
         }
       } catch (e) {
-        // Continue to next log
+        console.log(`Failed to parse log: ${e.message}`);
       }
     }
     
@@ -206,7 +208,7 @@ Deno.serve(async (req: Request) => {
             break;
           }
         } catch (e) {
-          // Continue to next log
+          console.log(`Failed manual parsing: ${e.message}`);
         }
       }
     }
@@ -215,28 +217,39 @@ Deno.serve(async (req: Request) => {
     if (!tokenId) {
       console.log('No token ID found in logs, querying contract for the minted token...');
       try {
-        // Get the total supply before and after minting to find the new token
-        const totalSupplyBefore = await contract.totalSupply();
-        console.log(`Total supply before mint: ${totalSupplyBefore}`);
+        // Get the current total supply - this represents the next token ID to be minted
+        const totalSupply = await contract.totalSupply();
+        console.log(`Current total supply: ${totalSupply}`);
         
-        // The token ID that was just minted should be totalSupplyBefore (0-indexed)
-        tokenId = totalSupplyBefore.toString();
-        console.log(`Using token ID from totalSupply: ${tokenId}`);
-        
-        // Verify this token exists and is owned by our wallet
-        const actualOwner = await contract.ownerOf(tokenId);
-        console.log(`Verifying token ${tokenId} is owned by ${actualOwner}`);
-        
-        if (actualOwner.toLowerCase() !== walletAddress.toLowerCase()) {
-          throw new Error(`Token ${tokenId} ownership mismatch: expected ${walletAddress}, got ${actualOwner}`);
+        // The token ID that was just minted should be totalSupply - 1 (since totalSupply is the next ID)
+        if (totalSupply > 0) {
+          tokenId = (totalSupply - 1).toString();
+          console.log(`Using token ID from totalSupply: ${tokenId}`);
+          
+          // Verify this token exists and is owned by our wallet
+          const actualOwner = await contract.ownerOf(tokenId);
+          console.log(`Verifying token ${tokenId} is owned by ${actualOwner}`);
+          
+          if (actualOwner.toLowerCase() !== walletAddress.toLowerCase()) {
+            throw new Error(`Token ${tokenId} ownership mismatch: expected ${walletAddress}, got ${actualOwner}`);
+          }
+          
+          console.log(`Token ${tokenId} ownership verified successfully`);
+        } else {
+          throw new Error('No tokens minted yet');
         }
-        
-        console.log(`Token ${tokenId} ownership verified successfully`);
       } catch (e) {
         console.error('Error querying contract for token ID:', e);
         throw new Error(`Failed to determine token ID from blockchain: ${e.message}`);
       }
     }
+    
+    // Final verification - ensure we have a valid token ID
+    if (!tokenId) {
+      throw new Error('Failed to extract token ID from transaction');
+    }
+    
+    console.log(`Final token ID: ${tokenId}`);
     
     console.log(`NFT minted successfully: Token ID ${tokenId}`);
 
