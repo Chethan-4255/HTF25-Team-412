@@ -1,9 +1,9 @@
-<img width="283" height="41" alt="image" src="https://github.com/user-attachments/assets/8f415161-7343-4974-b035-91ceda02e440" />
-# EventPravesh - NFT Event Ticketing Platform
+## EventPravesh - NFT Event Ticketing Platform
 
 A complete blockchain-powered event ticketing platform built with React, Supabase, and smart contracts on the Nexus Testnet. This project enables event hosts to create events, sell NFT tickets, and verify attendees using QR codes with 3-layer security verification.
 
 [Working Prototype Link](https://eventpravesh.vercel.app)
+<img width="283" height="41" alt="image" src="https://github.com/user-attachments/assets/8f415161-7343-4974-b035-91ceda02e440" />
 
 [Prototype Video Link](https://www.youtube.com/watch?v=xPVVxXEiXWQ)
 
