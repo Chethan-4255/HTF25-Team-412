@@ -365,40 +365,46 @@ function Header({ user, profile, onNavigate, onLogout }) {
     <header className="bg-white border-b border-gray-200 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          <div className="flex items-center gap-8">
-            <button onClick={() => onNavigate('home')} className="flex items-center gap-2">
+          {/* Logo and Navigation */}
+          <div className="flex items-center gap-2 sm:gap-4 lg:gap-8">
+            <button onClick={() => onNavigate('home')} className="flex items-center gap-1 sm:gap-2">
               <Logo />
-              <span className="text-xl font-semibold text-gray-900">EventPravesh</span>
+              <span className="text-lg sm:text-xl font-semibold text-gray-900">EventPravesh</span>
             </button>
-            <button
-              onClick={() => onNavigate('home')}
-              className="text-gray-600 hover:text-gray-900 font-medium"
-            >
-              Discover Events
-            </button>
-            {profile?.is_host && (
+            
+            {/* Desktop Navigation */}
+            <div className="hidden lg:flex items-center gap-4">
               <button
-                onClick={() => onNavigate('hostDashboard')}
+                onClick={() => onNavigate('home')}
                 className="text-gray-600 hover:text-gray-900 font-medium"
               >
-                Host Dashboard
+                Discover Events
               </button>
-            )}
+              {profile?.is_host && (
+                <button
+                  onClick={() => onNavigate('hostDashboard')}
+                  className="text-gray-600 hover:text-gray-900 font-medium"
+                >
+                  Host Dashboard
+                </button>
+              )}
+            </div>
           </div>
 
-          <div className="flex items-center gap-4">
+          {/* Right Side Actions */}
+          <div className="flex items-center gap-1 sm:gap-2 lg:gap-4">
             {user ? (
               <div className="relative">
                 <button
                   onClick={() => setShowDropdown(!showDropdown)}
-                  className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-gray-50"
+                  className="flex items-center gap-1 sm:gap-2 px-2 sm:px-4 py-2 rounded-lg hover:bg-gray-50"
                 >
-                  <User className="w-5 h-5 text-gray-600" />
-                  <span className="text-gray-900 font-medium">{profile?.name}</span>
-                  <ChevronDown className="w-4 h-4 text-gray-600" />
+                  <User className="w-4 h-4 sm:w-5 sm:h-5 text-gray-600" />
+                  <span className="hidden sm:inline text-gray-900 font-medium">{profile?.name}</span>
+                  <ChevronDown className="w-3 h-3 sm:w-4 sm:h-4 text-gray-600" />
                 </button>
                 {showDropdown && (
-                  <div className="absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-200 py-2">
+                  <div className="absolute right-0 mt-2 w-48 sm:w-56 bg-white rounded-lg shadow-lg border border-gray-200 py-2">
                     <div className="px-4 py-2 border-b border-gray-100">
                       <p className="text-sm font-medium text-gray-900">{profile?.name}</p>
                       <p className="text-xs text-gray-500">{user.email}</p>
@@ -432,25 +438,28 @@ function Header({ user, profile, onNavigate, onLogout }) {
                 )}
               </div>
             ) : (
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-1 sm:gap-2 lg:gap-3">
                 <button
                   onClick={() => onNavigate('scanLogin')}
-                  className="px-4 py-2 text-gray-700 font-medium hover:text-gray-900 flex items-center gap-2"
+                  className="px-2 sm:px-4 py-2 text-gray-700 font-medium hover:text-gray-900 flex items-center gap-1 sm:gap-2 text-xs sm:text-sm"
                 >
-                  <Shield className="w-4 h-4" />
-                  Staff Login
+                  <Shield className="w-3 h-3 sm:w-4 sm:h-4" />
+                  <span className="hidden sm:inline">Staff Login</span>
+                  <span className="sm:hidden">Staff</span>
                 </button>
                 <button
                   onClick={() => onNavigate('auth', 'login')}
-                  className="px-4 py-2 text-gray-700 font-medium hover:text-gray-900"
+                  className="px-2 sm:px-4 py-2 text-gray-700 font-medium hover:text-gray-900 text-xs sm:text-sm"
                 >
-                  Log In
+                  <span className="hidden sm:inline">Log In</span>
+                  <span className="sm:hidden">Login</span>
                 </button>
                 <button
                   onClick={() => onNavigate('auth', 'signup')}
-                  className="px-4 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700"
+                  className="px-2 sm:px-4 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 text-xs sm:text-sm"
                 >
-                  Sign Up
+                  <span className="hidden sm:inline">Sign Up</span>
+                  <span className="sm:hidden">Signup</span>
                 </button>
               </div>
             )}
@@ -519,44 +528,44 @@ function HomePage({ onNavigate }) {
 
   return (
     <div className="min-h-screen bg-white">
-      <div className="bg-gradient-to-b from-blue-50 to-white py-16">
+      <div className="bg-gradient-to-b from-blue-50 to-white py-8 sm:py-12 lg:py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h1 className="text-5xl font-bold text-gray-900 mb-4">
+          <div className="text-center mb-8 sm:mb-12">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-3 sm:mb-4">
               Discover Amazing Events
             </h1>
-            <p className="text-xl text-gray-600">
+            <p className="text-base sm:text-lg lg:text-xl text-gray-600">
               Blockchain-powered NFT ticketing for the future of events
             </p>
           </div>
 
-          <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-            <div className="flex flex-col md:flex-row gap-4">
+          <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-sm border border-gray-200 p-4 sm:p-6">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
               <div className="flex-1 relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 text-gray-400" />
                 <input
                   type="text"
                   placeholder="Search events..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
-                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full pl-9 sm:pl-10 pr-3 sm:pr-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm sm:text-base"
                 />
               </div>
               <div className="flex-1 relative">
-                <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 text-gray-400" />
                 <input
                   type="text"
                   placeholder="Location..."
                   value={searchLocation}
                   onChange={(e) => setSearchLocation(e.target.value)}
                   onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
-                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full pl-9 sm:pl-10 pr-3 sm:pr-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm sm:text-base"
                 />
               </div>
               <button
                 onClick={handleSearch}
-                className="px-8 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 whitespace-nowrap"
+                className="px-4 sm:px-6 lg:px-8 py-2 sm:py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 whitespace-nowrap text-sm sm:text-base"
               >
                 Search
               </button>
@@ -571,11 +580,11 @@ function HomePage({ onNavigate }) {
             <Loader className="w-8 h-8 text-blue-600 animate-spin" />
           </div>
         ) : events.length === 0 ? (
-          <div className="text-center py-16">
-            <p className="text-gray-500 text-lg">No events found</p>
+          <div className="text-center py-8 sm:py-16">
+            <p className="text-gray-500 text-base sm:text-lg">No events found</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {events.map((event) => (
               <button
                 key={event.id}
@@ -589,12 +598,12 @@ function HomePage({ onNavigate }) {
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <div className="p-5">
-                  <div className="flex items-center justify-between mb-2">
-                    <h3 className="text-lg font-semibold text-gray-900 line-clamp-2">
+                <div className="p-4 sm:p-5">
+                  <div className="flex items-start justify-between mb-2 gap-2">
+                    <h3 className="text-base sm:text-lg font-semibold text-gray-900 line-clamp-2 flex-1">
                       {event.title}
                     </h3>
-                    <div className="flex items-center gap-1">
+                    <div className="flex flex-col sm:flex-row items-end gap-1 flex-shrink-0">
                       {event.is_free ? (
                         <span className="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-semibold">
                           Free
@@ -613,17 +622,17 @@ function HomePage({ onNavigate }) {
                       </span>
                     </div>
                   </div>
-                  <div className="flex items-center gap-2 text-sm text-gray-600 mb-2">
-                    <Calendar className="w-4 h-4" />
+                  <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-600 mb-2">
+                    <Calendar className="w-3 h-3 sm:w-4 sm:h-4" />
                     <span>{formatDate(event.date)}</span>
                   </div>
-                  <div className="flex items-center gap-2 text-sm text-gray-600 mb-2">
-                    <MapPin className="w-4 h-4" />
+                  <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-600 mb-2">
+                    <MapPin className="w-3 h-3 sm:w-4 sm:h-4" />
                     <span className="line-clamp-1">{event.location}</span>
                   </div>
                   {event.total_seats && (
-                    <div className="flex items-center gap-2 text-sm text-gray-600">
-                      <Users className="w-4 h-4" />
+                    <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-600">
+                      <Users className="w-3 h-3 sm:w-4 sm:h-4" />
                       <span>{event.total_seats} seats</span>
                     </div>
                   )}
@@ -705,7 +714,7 @@ function EventDetailPage({ eventId, user, onNavigate }) {
 
   return (
     <div className="min-h-screen bg-white">
-      <div className="w-full h-96 relative overflow-hidden bg-gray-100">
+      <div className="w-full h-48 sm:h-64 lg:h-96 relative overflow-hidden bg-gray-100">
         <img
           src={event.banner_url}
           alt={event.title}
@@ -713,33 +722,33 @@ function EventDetailPage({ eventId, user, onNavigate }) {
         />
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-12">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
           <div className="lg:col-span-2">
-            <h1 className="text-4xl font-bold text-gray-900 mb-6">{event.title}</h1>
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 sm:mb-6">{event.title}</h1>
 
-            <div className="bg-gray-50 rounded-xl p-6 mb-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="flex items-start gap-4">
-                  <Calendar className="w-6 h-6 text-blue-600 mt-1" />
+            <div className="bg-gray-50 rounded-xl p-4 sm:p-6 mb-4 sm:mb-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+                <div className="flex items-start gap-3 sm:gap-4">
+                  <Calendar className="w-5 h-5 sm:w-6 sm:h-6 text-blue-600 mt-1" />
                   <div>
-                    <p className="font-semibold text-gray-900">Date and Time</p>
-                    <p className="text-gray-600">{formatDate(event.date)}</p>
-                    <p className="text-gray-600">{formatTime(event.date)}</p>
+                    <p className="font-semibold text-gray-900 text-sm sm:text-base">Date and Time</p>
+                    <p className="text-gray-600 text-sm sm:text-base">{formatDate(event.date)}</p>
+                    <p className="text-gray-600 text-sm sm:text-base">{formatTime(event.date)}</p>
                   </div>
                 </div>
                 
-                <div className="flex items-start gap-4">
-                  <MapPin className="w-6 h-6 text-blue-600 mt-1" />
+                <div className="flex items-start gap-3 sm:gap-4">
+                  <MapPin className="w-5 h-5 sm:w-6 sm:h-6 text-blue-600 mt-1" />
                   <div>
-                    <p className="font-semibold text-gray-900">Location</p>
-                    <p className="text-gray-600">{event.location}</p>
+                    <p className="font-semibold text-gray-900 text-sm sm:text-base">Location</p>
+                    <p className="text-gray-600 text-sm sm:text-base">{event.location}</p>
                     {event.venue_link && (
                       <a
                         href={event.venue_link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-blue-600 hover:text-blue-800 text-sm underline mt-1 inline-block"
+                        className="text-blue-600 hover:text-blue-800 text-xs sm:text-sm underline mt-1 inline-block"
                       >
                         View on Map / Venue Website →
                       </a>
@@ -747,45 +756,45 @@ function EventDetailPage({ eventId, user, onNavigate }) {
                   </div>
                 </div>
 
-                <div className="flex items-start gap-4">
-                  <div className="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center mt-1">
+                <div className="flex items-start gap-3 sm:gap-4">
+                  <div className="w-5 h-5 sm:w-6 sm:h-6 bg-blue-100 rounded-full flex items-center justify-center mt-1">
                     <span className="text-xs font-bold text-blue-600">
                       {event.event_type === 'online' ? 'ON' : 'OFF'}
                     </span>
                   </div>
                   <div>
-                    <p className="font-semibold text-gray-900">Event Type</p>
-                    <p className="text-gray-600 capitalize">{event.event_type} Event</p>
+                    <p className="font-semibold text-gray-900 text-sm sm:text-base">Event Type</p>
+                    <p className="text-gray-600 text-sm sm:text-base capitalize">{event.event_type} Event</p>
                   </div>
                 </div>
 
                 {event.total_seats && (
-                  <div className="flex items-start gap-4">
-                    <Users className="w-6 h-6 text-blue-600 mt-1" />
+                  <div className="flex items-start gap-3 sm:gap-4">
+                    <Users className="w-5 h-5 sm:w-6 sm:h-6 text-blue-600 mt-1" />
                     <div>
-                      <p className="font-semibold text-gray-900">Total Seats</p>
-                      <p className="text-gray-600">{event.total_seats} seats available</p>
+                      <p className="font-semibold text-gray-900 text-sm sm:text-base">Total Seats</p>
+                      <p className="text-gray-600 text-sm sm:text-base">{event.total_seats} seats available</p>
                     </div>
                   </div>
                 )}
               </div>
 
               {(event.contact_email || event.contact_mobile) && (
-                <div className="mt-6 pt-6 border-t border-gray-200">
-                  <h3 className="font-semibold text-gray-900 mb-3">Contact Information</h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="mt-4 sm:mt-6 pt-4 sm:pt-6 border-t border-gray-200">
+                  <h3 className="font-semibold text-gray-900 mb-3 text-sm sm:text-base">Contact Information</h3>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                     {event.contact_email && (
                       <div className="flex items-center gap-2">
-                        <span className="text-sm text-gray-600">Email:</span>
-                        <a href={`mailto:${event.contact_email}`} className="text-blue-600 hover:text-blue-800 text-sm">
+                        <span className="text-xs sm:text-sm text-gray-600">Email:</span>
+                        <a href={`mailto:${event.contact_email}`} className="text-blue-600 hover:text-blue-800 text-xs sm:text-sm">
                           {event.contact_email}
                         </a>
                       </div>
                     )}
                     {event.contact_mobile && (
                       <div className="flex items-center gap-2">
-                        <span className="text-sm text-gray-600">Mobile:</span>
-                        <a href={`tel:${event.contact_mobile}`} className="text-blue-600 hover:text-blue-800 text-sm">
+                        <span className="text-xs sm:text-sm text-gray-600">Mobile:</span>
+                        <a href={`tel:${event.contact_mobile}`} className="text-blue-600 hover:text-blue-800 text-xs sm:text-sm">
                           {event.contact_mobile}
                         </a>
                       </div>
@@ -804,7 +813,7 @@ function EventDetailPage({ eventId, user, onNavigate }) {
             {event.additional_images && event.additional_images.length > 0 && (
               <div className="mt-8">
                 <h2 className="text-2xl font-bold text-gray-900 mb-4">Event Gallery</h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                   {event.additional_images.map((imageUrl, index) => (
                     <div key={index} className="aspect-square rounded-lg overflow-hidden">
                       <img
@@ -820,40 +829,40 @@ function EventDetailPage({ eventId, user, onNavigate }) {
           </div>
 
           <div className="lg:col-span-1">
-            <div className="sticky top-24 bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
-              <div className="mb-6">
+            <div className="sticky top-20 sm:top-24 bg-white border border-gray-200 rounded-xl p-4 sm:p-6 shadow-sm">
+              <div className="mb-4 sm:mb-6">
                 <div className="flex items-center gap-2 text-blue-600 mb-2">
-                  <Ticket className="w-5 h-5" />
-                  <span className="font-semibold">NFT Ticket</span>
+                  <Ticket className="w-4 h-4 sm:w-5 sm:h-5" />
+                  <span className="font-semibold text-sm sm:text-base">NFT Ticket</span>
                 </div>
-                <p className="text-sm text-gray-600 mb-2">
+                <p className="text-xs sm:text-sm text-gray-600 mb-2">
                   Your ticket will be minted as an NFT on the blockchain
                 </p>
                 
                 {/* Pricing Information */}
-                <div className="mb-4">
+                <div className="mb-3 sm:mb-4">
                   {event.is_free ? (
-                    <div className="flex items-center gap-2 text-green-600 text-sm">
-                      <CheckCircle className="w-4 h-4" />
+                    <div className="flex items-center gap-2 text-green-600 text-xs sm:text-sm">
+                      <CheckCircle className="w-3 h-3 sm:w-4 sm:h-4" />
                       <span className="font-semibold">Free Event</span>
                     </div>
                   ) : (
                     <div className="space-y-2">
-                      <div className="flex items-center gap-2 text-blue-600 text-sm">
-                        <CheckCircle className="w-4 h-4" />
+                      <div className="flex items-center gap-2 text-blue-600 text-xs sm:text-sm">
+                        <CheckCircle className="w-3 h-3 sm:w-4 sm:h-4" />
                         <span className="font-semibold">Paid Event</span>
                       </div>
                       {event.ticket_types && event.ticket_types.length > 0 ? (
                         <div className="space-y-1">
                           {event.ticket_types.map((type, index) => (
-                            <div key={index} className="flex justify-between items-center text-sm">
+                            <div key={index} className="flex justify-between items-center text-xs sm:text-sm">
                               <span className="text-gray-600">{type.name}</span>
                               <span className="font-semibold text-gray-900">₹{type.price}</span>
                             </div>
                           ))}
                         </div>
                       ) : (
-                        <div className="text-sm text-gray-600">
+                        <div className="text-xs sm:text-sm text-gray-600">
                           Price: ₹{event.ticket_price || 0}
                         </div>
                       )}
@@ -861,8 +870,8 @@ function EventDetailPage({ eventId, user, onNavigate }) {
                   )}
                 </div>
                 
-                <div className="flex items-center gap-2 text-green-600 text-sm">
-                  <CheckCircle className="w-4 h-4" />
+                <div className="flex items-center gap-2 text-green-600 text-xs sm:text-sm">
+                  <CheckCircle className="w-3 h-3 sm:w-4 sm:h-4" />
                   <span>Ready to mint NFT ticket</span>
                 </div>
               </div>
@@ -881,7 +890,7 @@ function EventDetailPage({ eventId, user, onNavigate }) {
               ) : (
                 <button
                   onClick={handleBuyTicket}
-                  className="w-full py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors"
+                  className="w-full py-2 sm:py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors text-sm sm:text-base"
                 >
                   Buy Ticket
                 </button>
@@ -1101,7 +1110,7 @@ function AuthPage({ mode, onNavigate, onAuthSuccess }) {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 required={!isLogin}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="John Doe"
               />
             </div>
@@ -1116,7 +1125,7 @@ function AuthPage({ mode, onNavigate, onAuthSuccess }) {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="you@example.com"
             />
           </div>
@@ -1130,7 +1139,7 @@ function AuthPage({ mode, onNavigate, onAuthSuccess }) {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="••••••••"
             />
           </div>
@@ -1214,24 +1223,24 @@ function ProfilePage({ user, profile, onNavigate }) {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
+    <div className="min-h-screen bg-gray-50 py-4 sm:py-6 lg:py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8 mb-8">
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-4">
-              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center">
-                <User className="w-8 h-8 text-blue-600" />
+        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 sm:p-6 lg:p-8 mb-6 sm:mb-8">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 sm:mb-6 gap-4">
+            <div className="flex items-center gap-3 sm:gap-4">
+              <div className="w-12 h-12 sm:w-16 sm:h-16 bg-blue-100 rounded-full flex items-center justify-center">
+                <User className="w-6 h-6 sm:w-8 sm:h-8 text-blue-600" />
               </div>
               <div>
-                <h1 className="text-2xl font-bold text-gray-900">{profile?.name}</h1>
-                <p className="text-gray-600">{user.email}</p>
-                {profile?.age && <p className="text-sm text-gray-500">Age: {profile.age}</p>}
-                {profile?.mobile && <p className="text-sm text-gray-500">Mobile: {profile.mobile}</p>}
+                <h1 className="text-xl sm:text-2xl font-bold text-gray-900">{profile?.name}</h1>
+                <p className="text-sm sm:text-base text-gray-600">{user.email}</p>
+                {profile?.age && <p className="text-xs sm:text-sm text-gray-500">Age: {profile.age}</p>}
+                {profile?.mobile && <p className="text-xs sm:text-sm text-gray-500">Mobile: {profile.mobile}</p>}
               </div>
             </div>
             <button
               onClick={() => setShowEditProfile(true)}
-              className="px-4 py-2 text-blue-600 hover:bg-blue-50 rounded-lg border border-blue-200 text-sm font-medium"
+              className="px-3 sm:px-4 py-2 text-blue-600 hover:bg-blue-50 rounded-lg border border-blue-200 text-xs sm:text-sm font-medium"
             >
               Edit Profile
             </button>
@@ -1273,7 +1282,7 @@ function ProfilePage({ user, profile, onNavigate }) {
                     type="text"
                     value={editForm.name}
                     onChange={(e) => setEditForm({...editForm, name: e.target.value})}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
 
@@ -1287,7 +1296,7 @@ function ProfilePage({ user, profile, onNavigate }) {
                     onChange={(e) => setEditForm({...editForm, age: e.target.value})}
                     min="1"
                     max="120"
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
 
@@ -1300,7 +1309,7 @@ function ProfilePage({ user, profile, onNavigate }) {
                     value={editForm.mobile}
                     onChange={(e) => setEditForm({...editForm, mobile: e.target.value})}
                     placeholder="+919876543210"
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
 
@@ -1313,7 +1322,7 @@ function ProfilePage({ user, profile, onNavigate }) {
                     onChange={(e) => setEditForm({...editForm, bio: e.target.value})}
                     rows={3}
                     placeholder="Tell us about yourself..."
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
               </div>
@@ -1338,7 +1347,7 @@ function ProfilePage({ user, profile, onNavigate }) {
         )}
 
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">My Tickets</h2>
+          <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6">My Tickets</h2>
 
           {loading ? (
             <div className="flex justify-center py-12">
@@ -1356,7 +1365,7 @@ function ProfilePage({ user, profile, onNavigate }) {
               </button>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {tickets.map((ticket) => (
                 <div
                   key={ticket.id}
@@ -1532,14 +1541,14 @@ function HostDashboard({ user, profile, onNavigate }) {
   return (
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-8">Host Dashboard</h1>
+        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-6 sm:mb-8">Host Dashboard</h1>
 
         <div className="bg-white rounded-xl shadow-sm border border-gray-200">
           <div className="border-b border-gray-200">
-            <div className="flex">
+            <div className="flex flex-col sm:flex-row">
               <button
                 onClick={() => setActiveTab('events')}
-                className={`px-6 py-4 font-medium border-b-2 ${
+                className={`px-4 sm:px-6 py-3 sm:py-4 font-medium border-b-2 sm:border-b-2 text-sm sm:text-base ${
                   activeTab === 'events'
                     ? 'border-blue-600 text-blue-600'
                     : 'border-transparent text-gray-600 hover:text-gray-900'
@@ -1549,7 +1558,7 @@ function HostDashboard({ user, profile, onNavigate }) {
               </button>
               <button
                 onClick={() => setActiveTab('create')}
-                className={`px-6 py-4 font-medium border-b-2 ${
+                className={`px-4 sm:px-6 py-3 sm:py-4 font-medium border-b-2 sm:border-b-2 text-sm sm:text-base ${
                   activeTab === 'create'
                     ? 'border-blue-600 text-blue-600'
                     : 'border-transparent text-gray-600 hover:text-gray-900'
@@ -1560,7 +1569,7 @@ function HostDashboard({ user, profile, onNavigate }) {
             </div>
           </div>
 
-          <div className="p-8">
+          <div className="p-4 sm:p-6 lg:p-8">
             {activeTab === 'events' ? (
               loading ? (
                 <div className="flex justify-center py-12">
@@ -1810,7 +1819,7 @@ function EditEventForm({ eventId, user, onSuccess }) {
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               required
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Amazing Tech Conference 2025"
             />
           </div>
@@ -1824,12 +1833,12 @@ function EditEventForm({ eventId, user, onSuccess }) {
               onChange={(e) => setDescription(e.target.value)}
               required
               rows={4}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Describe your event..."
             />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Date and Time
@@ -1839,7 +1848,7 @@ function EditEventForm({ eventId, user, onSuccess }) {
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
                 required
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
 
@@ -1850,7 +1859,7 @@ function EditEventForm({ eventId, user, onSuccess }) {
               <select
                 value={eventType}
                 onChange={(e) => setEventType(e.target.value)}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
                 <option value="offline">Offline Event</option>
                 <option value="online">Online Event</option>
@@ -1858,7 +1867,7 @@ function EditEventForm({ eventId, user, onSuccess }) {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Location
@@ -1868,7 +1877,7 @@ function EditEventForm({ eventId, user, onSuccess }) {
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
                 required
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder={eventType === 'online' ? 'Online Platform' : 'City, State'}
               />
             </div>
@@ -1882,7 +1891,7 @@ function EditEventForm({ eventId, user, onSuccess }) {
                 value={totalSeats}
                 onChange={(e) => setTotalSeats(e.target.value)}
                 min="1"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="e.g., 100"
               />
             </div>
@@ -1897,7 +1906,7 @@ function EditEventForm({ eventId, user, onSuccess }) {
                 type="url"
                 value={venueLink}
                 onChange={(e) => setVenueLink(e.target.value)}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="https://maps.google.com/..."
               />
               <p className="text-xs text-gray-500 mt-1">
@@ -1999,7 +2008,7 @@ function EditEventForm({ eventId, user, onSuccess }) {
       <div className="bg-gray-50 p-6 rounded-lg">
         <h3 className="text-lg font-semibold text-gray-900 mb-4">Contact Information</h3>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
               Contact Email
@@ -2008,7 +2017,7 @@ function EditEventForm({ eventId, user, onSuccess }) {
               type="email"
               value={contactEmail}
               onChange={(e) => setContactEmail(e.target.value)}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="contact@yourevent.com"
             />
           </div>
@@ -2021,7 +2030,7 @@ function EditEventForm({ eventId, user, onSuccess }) {
               type="tel"
               value={contactMobile}
               onChange={(e) => setContactMobile(e.target.value)}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="+919876543210"
             />
           </div>
@@ -2041,7 +2050,7 @@ function EditEventForm({ eventId, user, onSuccess }) {
               type="file"
               accept="image/*"
               onChange={(e) => setBannerFile(e.target.files[0])}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
             <p className="text-xs text-gray-500 mt-1">
               Recommended banner size: 1200x400px
@@ -2056,7 +2065,7 @@ function EditEventForm({ eventId, user, onSuccess }) {
               type="file"
               accept="image/*"
               onChange={(e) => setCardFile(e.target.files[0])}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
             <p className="text-xs text-gray-500 mt-1">
               Recommended card size: 600x400px
@@ -2072,7 +2081,7 @@ function EditEventForm({ eventId, user, onSuccess }) {
               accept="image/*"
               multiple
               onChange={(e) => setAdditionalFiles(Array.from(e.target.files))}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
             <p className="text-xs text-gray-500 mt-1">
               Upload multiple images to showcase your event
@@ -2195,7 +2204,7 @@ function CreateEventForm({ user, onSuccess }) {
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               required
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Amazing Tech Conference 2025"
             />
           </div>
@@ -2209,12 +2218,12 @@ function CreateEventForm({ user, onSuccess }) {
               onChange={(e) => setDescription(e.target.value)}
               required
               rows={4}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Describe your event..."
             />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Date and Time
@@ -2224,7 +2233,7 @@ function CreateEventForm({ user, onSuccess }) {
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
                 required
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
 
@@ -2235,7 +2244,7 @@ function CreateEventForm({ user, onSuccess }) {
               <select
                 value={eventType}
                 onChange={(e) => setEventType(e.target.value)}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
                 <option value="offline">Offline Event</option>
                 <option value="online">Online Event</option>
@@ -2243,7 +2252,7 @@ function CreateEventForm({ user, onSuccess }) {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Location
@@ -2253,7 +2262,7 @@ function CreateEventForm({ user, onSuccess }) {
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
                 required
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder={eventType === 'online' ? 'Online Platform' : 'City, State'}
               />
             </div>
@@ -2267,7 +2276,7 @@ function CreateEventForm({ user, onSuccess }) {
                 value={totalSeats}
                 onChange={(e) => setTotalSeats(e.target.value)}
                 min="1"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="e.g., 100"
               />
             </div>
@@ -2282,7 +2291,7 @@ function CreateEventForm({ user, onSuccess }) {
                 type="url"
                 value={venueLink}
                 onChange={(e) => setVenueLink(e.target.value)}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="https://maps.google.com/..."
               />
               <p className="text-xs text-gray-500 mt-1">
@@ -2384,7 +2393,7 @@ function CreateEventForm({ user, onSuccess }) {
       <div className="bg-gray-50 p-6 rounded-lg">
         <h3 className="text-lg font-semibold text-gray-900 mb-4">Contact Information</h3>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
               Contact Email
@@ -2393,7 +2402,7 @@ function CreateEventForm({ user, onSuccess }) {
               type="email"
               value={contactEmail}
               onChange={(e) => setContactEmail(e.target.value)}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="contact@yourevent.com"
             />
           </div>
@@ -2406,7 +2415,7 @@ function CreateEventForm({ user, onSuccess }) {
               type="tel"
               value={contactMobile}
               onChange={(e) => setContactMobile(e.target.value)}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="+919876543210"
             />
           </div>
@@ -2427,7 +2436,7 @@ function CreateEventForm({ user, onSuccess }) {
               accept="image/*"
               onChange={(e) => setBannerFile(e.target.files[0])}
               required
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
             <p className="text-xs text-gray-500 mt-1">
               Recommended banner size: 1200x400px
@@ -2443,7 +2452,7 @@ function CreateEventForm({ user, onSuccess }) {
               accept="image/*"
               onChange={(e) => setCardFile(e.target.files[0])}
               required
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
             <p className="text-xs text-gray-500 mt-1">
               Recommended card size: 600x400px
@@ -2459,7 +2468,7 @@ function CreateEventForm({ user, onSuccess }) {
               accept="image/*"
               multiple
               onChange={(e) => setAdditionalFiles(Array.from(e.target.files))}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
             <p className="text-xs text-gray-500 mt-1">
               Upload multiple images to showcase your event
@@ -2576,7 +2585,7 @@ function ManageEventPage({ eventId, onNavigate }) {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                   placeholder="staff@example.com"
                 />
               </div>
@@ -2590,7 +2599,7 @@ function ManageEventPage({ eventId, onNavigate }) {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                   placeholder="••••••••"
                 />
               </div>
@@ -2687,7 +2696,7 @@ function StaffLoginPage({ onNavigate, onLoginSuccess }) {
               value={eventId}
               onChange={(e) => setEventId(e.target.value)}
               required
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Event ID"
             />
           </div>
@@ -2701,7 +2710,7 @@ function StaffLoginPage({ onNavigate, onLoginSuccess }) {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="staff@example.com"
             />
           </div>
@@ -2715,7 +2724,7 @@ function StaffLoginPage({ onNavigate, onLoginSuccess }) {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="••••••••"
             />
           </div>
@@ -2812,23 +2821,23 @@ function ScannerPage({ staff, eventId, onNavigate, onLogout }) {
     <div className="min-h-screen bg-gray-900">
       {verificationResult ? (
         <div
-          className={`min-h-screen flex flex-col items-center justify-center p-8 ${
+          className={`min-h-screen flex flex-col items-center justify-center p-4 sm:p-8 ${
             verificationResult.success ? 'bg-green-500' : 'bg-red-500'
           }`}
         >
           <div className="text-white text-center">
             {verificationResult.success ? (
-              <CheckCircle className="w-32 h-32 mx-auto mb-8" />
+              <CheckCircle className="w-20 h-20 sm:w-32 sm:h-32 mx-auto mb-4 sm:mb-8" />
             ) : (
-              <XCircle className="w-32 h-32 mx-auto mb-8" />
+              <XCircle className="w-20 h-20 sm:w-32 sm:h-32 mx-auto mb-4 sm:mb-8" />
             )}
-            <h1 className="text-4xl font-bold mb-4">
+            <h1 className="text-2xl sm:text-4xl font-bold mb-2 sm:mb-4">
               {verificationResult.success ? 'Valid Ticket' : 'Invalid Ticket'}
             </h1>
-            <p className="text-2xl mb-8">{verificationResult.message}</p>
+            <p className="text-lg sm:text-2xl mb-4 sm:mb-8">{verificationResult.message}</p>
             <button
               onClick={handleScanNext}
-              className="px-8 py-4 bg-white text-gray-900 rounded-lg font-semibold text-lg hover:bg-gray-100"
+              className="px-4 sm:px-8 py-2 sm:py-4 bg-white text-gray-900 rounded-lg font-semibold text-sm sm:text-lg hover:bg-gray-100"
             >
               Scan Next Ticket
             </button>
@@ -2836,25 +2845,25 @@ function ScannerPage({ staff, eventId, onNavigate, onLogout }) {
         </div>
       ) : (
         <div className="min-h-screen flex flex-col">
-          <div className="bg-gray-800 p-4 text-white">
+          <div className="bg-gray-800 p-3 sm:p-4 text-white">
             <div className="max-w-7xl mx-auto flex justify-between items-center">
               <div>
-                <h1 className="text-xl font-bold">Ticket Scanner</h1>
-                <p className="text-sm text-gray-300">Staff: {staff.email}</p>
+                <h1 className="text-lg sm:text-xl font-bold">Ticket Scanner</h1>
+                <p className="text-xs sm:text-sm text-gray-300">Staff: {staff.email}</p>
               </div>
               <button
                 onClick={onLogout}
-                className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 text-sm font-medium"
+                className="px-3 sm:px-4 py-1.5 sm:py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 text-xs sm:text-sm font-medium"
               >
                 Logout
               </button>
             </div>
           </div>
 
-          <div className="flex-1 flex items-center justify-center p-8">
-            <div className="max-w-md w-full">
+          <div className="flex-1 flex items-center justify-center p-4 sm:p-8">
+            <div className="max-w-sm sm:max-w-md w-full">
               <div id="qr-reader" ref={scannerRef} className="rounded-xl overflow-hidden" />
-              <p className="text-white text-center mt-6 text-lg">
+              <p className="text-white text-center mt-4 sm:mt-6 text-sm sm:text-lg">
                 Position the QR code within the frame
               </p>
             </div>
