@@ -1601,7 +1601,14 @@ function HostDashboard({ user, profile, onNavigate }) {
                       </div>
                       <div className="flex-1">
                         <div className="flex items-center justify-between mb-1">
-                          <h3 className="font-semibold text-gray-900">{event.title}</h3>
+                          <div className="flex flex-col">
+                            <h3 className="font-semibold text-gray-900">{event.title}</h3>
+                            <div className="flex items-center gap-2 mt-1">
+                              <span className="text-xs text-gray-500 font-mono bg-gray-100 px-2 py-1 rounded">
+                                ID: {event.id}
+                              </span>
+                            </div>
+                          </div>
                           <div className="flex items-center gap-1">
                             {event.is_free ? (
                               <span className="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-semibold">
