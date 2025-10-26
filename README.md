@@ -236,7 +236,7 @@ npm run dev
 ### Test Accounts
 
 **Host Account:**
-- Email: `host@eventpravesh.com`
+- Email: `host@gmail.com`
 - Password: `host123`
 
 **Mobile Number Format**: `+919876543210` (Indian format)
@@ -244,13 +244,13 @@ npm run dev
 - Role: Event Host
 
 **Staff Account:**
-- Email: `chethan@gmail.com`
-- Password: `12345`
+- Email: `staff@gmail.com`
+- Password: `staff123`
 - Role: Event Staff
 
 **Attendee Account:**
-- Email: `attendee@eventpravesh.com`
-- Password: `attendee123`
+- Email: `user@gmail.com`
+- Password: `user123`
 - Role: Regular User
 
 ### Test Workflow
