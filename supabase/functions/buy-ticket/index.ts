@@ -109,6 +109,19 @@ Deno.serve(async (req: Request) => {
         ],
         "stateMutability": "view",
         "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "totalSupply",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
       }
     ];
 
@@ -163,7 +176,7 @@ Deno.serve(async (req: Request) => {
     console.log(`Transaction confirmed: ${receipt.hash}`);
     
     // Extract token ID from the Transfer event
-    let tokenId = null;
+    let tokenId: string | null = null;
     
     // Method 1: Look for Transfer event in logs
     for (const log of receipt.logs) {
@@ -198,22 +211,31 @@ Deno.serve(async (req: Request) => {
       }
     }
     
-    // Method 3: If still no token ID, use a sequential approach
+    // Method 3: Query the contract for the exact token ID that was minted
     if (!tokenId) {
-      console.log('No token ID found in logs, using sequential approach...');
-      // Get the highest existing token ID and increment
-      const { data: existingTickets } = await supabaseClient
-        .from('tickets')
-        .select('token_id')
-        .order('token_id', { ascending: false })
-        .limit(1);
-      
-      if (existingTickets && existingTickets.length > 0) {
-        tokenId = (existingTickets[0].token_id + 1).toString();
-      } else {
-        tokenId = '1'; // Start from 1 if no tickets exist
+      console.log('No token ID found in logs, querying contract for the minted token...');
+      try {
+        // Get the total supply before and after minting to find the new token
+        const totalSupplyBefore = await contract.totalSupply();
+        console.log(`Total supply before mint: ${totalSupplyBefore}`);
+        
+        // The token ID that was just minted should be totalSupplyBefore (0-indexed)
+        tokenId = totalSupplyBefore.toString();
+        console.log(`Using token ID from totalSupply: ${tokenId}`);
+        
+        // Verify this token exists and is owned by our wallet
+        const actualOwner = await contract.ownerOf(tokenId);
+        console.log(`Verifying token ${tokenId} is owned by ${actualOwner}`);
+        
+        if (actualOwner.toLowerCase() !== walletAddress.toLowerCase()) {
+          throw new Error(`Token ${tokenId} ownership mismatch: expected ${walletAddress}, got ${actualOwner}`);
+        }
+        
+        console.log(`Token ${tokenId} ownership verified successfully`);
+      } catch (e) {
+        console.error('Error querying contract for token ID:', e);
+        throw new Error(`Failed to determine token ID from blockchain: ${e.message}`);
       }
-      console.log(`Using sequential token ID: ${tokenId}`);
     }
     
     console.log(`NFT minted successfully: Token ID ${tokenId}`);
@@ -228,7 +250,7 @@ Deno.serve(async (req: Request) => {
     const ticketData = {
       event_id: eventId,
       owner_user_id: userId,
-      token_id: parseInt(tokenId.toString()),
+      token_id: parseInt(tokenId!),
       owner_address: walletAddress,
       transaction_hash: receipt.hash,
       is_verified: false,
